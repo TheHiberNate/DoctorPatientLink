@@ -5,7 +5,7 @@
 namespace DoctorLink.Migrations
 {
     /// <inheritdoc />
-    public partial class AdditionalRegistrationFields : Migration
+    public partial class Update : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

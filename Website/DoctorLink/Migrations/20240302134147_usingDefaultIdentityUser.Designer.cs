@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorLink.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240302054654_UpdateIdentityTables")]
-    partial class UpdateIdentityTables
+    [Migration("20240302134147_usingDefaultIdentityUser")]
+    partial class usingDefaultIdentityUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace DoctorLink.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DotnetMVC.Models.Category", b =>
+            modelBuilder.Entity("DoctorLink.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

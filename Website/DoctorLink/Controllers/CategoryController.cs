@@ -1,8 +1,8 @@
-﻿using DotnetMVC.Data;
-using DotnetMVC.Models;
+﻿using DoctorLink.Data;
+using DoctorLink.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetMVC.Controllers
+namespace DoctorLink.Controllers
 {
     public class CategoryController : Controller
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations; // for entity framework
 
-namespace DotnetMVC.Models
+namespace DoctorLink.Models
 {
     public class Category
     {

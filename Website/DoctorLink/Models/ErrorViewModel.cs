@@ -1,4 +1,4 @@
-namespace DotnetMVC.Models
+namespace DoctorLink.Models
 {
     public class ErrorViewModel
     {

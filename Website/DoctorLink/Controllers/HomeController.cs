@@ -1,8 +1,8 @@
-using DotnetMVC.Models;
+using DoctorLink.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace DotnetMVC.Controllers
+namespace DoctorLink.Controllers
 {
     public class HomeController : Controller
     {

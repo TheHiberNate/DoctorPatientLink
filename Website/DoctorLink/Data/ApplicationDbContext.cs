@@ -1,10 +1,10 @@
-﻿using DotnetMVC.Models;
+﻿using DoctorLink.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DoctorLink.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
-namespace DotnetMVC.Data
+namespace DoctorLink.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
