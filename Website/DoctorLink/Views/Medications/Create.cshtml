@@ -1,0 +1,56 @@
+﻿@model DoctorLink.Models.Medication
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Medication</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DrugName" class="control-label"></label>
+                <input asp-for="DrugName" class="form-control" />
+                <span asp-validation-for="DrugName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dose" class="control-label"></label>
+                <input asp-for="Dose" class="form-control" />
+                <span asp-validation-for="Dose" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MedicationDescription" class="control-label"></label>
+                <input asp-for="MedicationDescription" class="form-control" />
+                <span asp-validation-for="MedicationDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsageDescription" class="control-label"></label>
+                <input asp-for="UsageDescription" class="form-control" />
+                <span asp-validation-for="UsageDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+@*             <div class="form-group">
+                <label asp-for="NumberOfScans" class="control-label"></label>
+                <input asp-for="NumberOfScans" class="form-control" />
+                <span asp-validation-for="NumberOfScans" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

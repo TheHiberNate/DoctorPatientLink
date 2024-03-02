@@ -2,14 +2,6 @@
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome DoctorPatient</h1>
-    @*<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
-</div>
 
 <ul class="navbar-nav">
     @if (!SignInManager.IsSignedIn(User))
@@ -25,15 +17,4 @@
             </ul>
         </li>
     }
-    else
-    {
-        <li class="text-center mt-1">
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="btn btn-primary" id="Patients" asp-controller="Patients" asp-action="Index">Patients</a>
-                </li>
-            </ul>
-        </li>
-    }
 </ul>
-
