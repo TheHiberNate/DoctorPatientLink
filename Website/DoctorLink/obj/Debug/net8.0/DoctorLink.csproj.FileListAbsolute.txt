@@ -558,3 +558,4 @@ C:\Users\natha\Documents\Projects\HackathonUOttawa\DoctorPatientLink\Website\Doc
 C:\Users\natha\Documents\Projects\HackathonUOttawa\DoctorPatientLink\Website\DoctorLink\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\natha\Documents\Projects\HackathonUOttawa\DoctorPatientLink\Website\DoctorLink\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\natha\Documents\Projects\HackathonUOttawa\DoctorPatientLink\Website\DoctorLink\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\natha\Documents\Projects\HackathonUOttawa\DoctorPatientLink\Website\DoctorLink\obj\Debug\net8.0\DoctorLink.sourcelink.json

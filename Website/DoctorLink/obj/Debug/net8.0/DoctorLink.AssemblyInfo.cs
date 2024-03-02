@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DoctorLink")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38077af23d11a5b7a677796dcaa368d4b3b178ab")]
 [assembly: System.Reflection.AssemblyProductAttribute("DoctorLink")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DoctorLink")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
