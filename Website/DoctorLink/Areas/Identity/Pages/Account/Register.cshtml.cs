@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using DoctorLink.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -70,15 +71,15 @@ namespace DoctorLink.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [StringLength(255, ErrorMessage="Max 255 characters area allowed")]
-            [Display(Name = "FirstName")]
-            public string FirstName { get; set; }
+            //[Required]
+            //[StringLength(255, ErrorMessage="Max 255 characters area allowed")]
+            //[Display(Name = "FirstName")]
+            //public string FirstName { get; set; }
 
-            [Required]
-            [StringLength(255, ErrorMessage = "Max 255 characters area allowed")]
-            [Display(Name = "LastName")]
-            public string LastName { get; set; }
+            //[Required]
+            //[StringLength(255, ErrorMessage = "Max 255 characters area allowed")]
+            //[Display(Name = "LastName")]
+            //public string LastName { get; set; }
 
 
             /// <summary>
@@ -125,6 +126,10 @@ namespace DoctorLink.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                //user.F = Input.FirstName;
+                //user.LastName = Input.LastName;
+                 
+
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -165,7 +170,7 @@ namespace DoctorLink.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private IdentityUser CreateUser() //changed return type to UserInfo
         {
             try
             {

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DotnetMVC.Migrations
+namespace DoctorLink.Migrations
 {
     /// <inheritdoc />
     public partial class AdditionalRegistrationFields : Migration

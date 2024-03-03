@@ -1,10 +1,10 @@
-﻿using DotnetMVC.Models;
+﻿using DoctorLink.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DoctorLink.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
-namespace DotnetMVC.Data
+namespace DoctorLink.Data
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
@@ -14,7 +14,7 @@ namespace DotnetMVC.Data
             
         }
 
-        public DbSet<Category> Categories { get; set; } // create table of Data type Category
+        public DbSet<Patient> Patients { get; set; } // create table of Data type Category
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -24,6 +24,7 @@ namespace DotnetMVC.Data
             // Add your customizations after calling base.OnModelCreating(builder);
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
         }
+        public DbSet<DoctorLink.Models.Medication> Medication { get; set; } = default!;
     }
 
     public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<UserInfo>

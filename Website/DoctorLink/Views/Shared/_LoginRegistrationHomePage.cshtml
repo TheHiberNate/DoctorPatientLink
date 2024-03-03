@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <li class="text-center mt-1">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="btn btn-primary" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                </li>
+            </ul>
+        </li>
+    }
+</ul>

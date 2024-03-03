@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DotnetMVC.Migrations
+namespace DoctorLink.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryToDatabase : Migration
