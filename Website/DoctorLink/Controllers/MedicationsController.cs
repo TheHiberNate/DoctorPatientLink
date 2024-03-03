@@ -80,8 +80,11 @@ namespace DoctorLink.Controllers
             {
                 _db.Add(medication);
                 await _db.SaveChangesAsync();
+                TempData["success"] = "Medication added successfully";
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(medication);
         }
 
@@ -133,6 +136,8 @@ namespace DoctorLink.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            TempData["success"] = "Medication updated successfully";
             return View(medication);
         }
 
@@ -166,6 +171,8 @@ namespace DoctorLink.Controllers
             }
 
             await _db.SaveChangesAsync();
+
+            TempData["success"] = "Medication removed successfully";
             return RedirectToAction(nameof(Index));
         }
 

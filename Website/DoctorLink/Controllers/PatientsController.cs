@@ -42,7 +42,7 @@ namespace DoctorLink.Controllers
             {
                 _db.Patients.Add(obj);
                 _db.SaveChanges();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Patient added successfully";
                 return RedirectToAction("Index"); // look for Index method within same controller (could also specify a diff controller)
             }
             return View(obj);
@@ -82,7 +82,7 @@ namespace DoctorLink.Controllers
             {
                 _db.Patients.Update(obj); //update in db
                 _db.SaveChanges();
-                TempData["success"] = "Category updated successfully";
+                TempData["success"] = "Patient details updated successfully";
                 return RedirectToAction("Index"); // look for Index method within same controller (could also specify a diff controller)
             }
             return View(obj);
@@ -119,7 +119,7 @@ namespace DoctorLink.Controllers
             
             _db.Patients.Remove(obj); //update in db
             _db.SaveChanges();
-            TempData["success"] = "Category deleted successfully";
+            TempData["success"] = "Patient removed successfully";
             return RedirectToAction("Index");
 
         }
