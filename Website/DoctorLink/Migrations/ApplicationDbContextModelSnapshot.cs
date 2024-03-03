@@ -22,26 +22,64 @@ namespace DoctorLink.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DoctorLink.Models.Patient", b =>
+            modelBuilder.Entity("DoctorLink.Models.Medication", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("MedicationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicationId"));
 
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DisplayOrder")
+                    b.Property<string>("Dose")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("DrugName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("MedicationDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NumberOfScans")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsageDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MedicationId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Medication");
+                });
+
+            modelBuilder.Entity("DoctorLink.Models.Patient", b =>
+                {
+                    b.Property<int>("PatientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientId"));
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("PatientId");
 
                     b.ToTable("Patients");
                 });
@@ -274,6 +312,13 @@ namespace DoctorLink.Migrations
                     b.HasDiscriminator().HasValue("UserInfo");
                 });
 
+            modelBuilder.Entity("DoctorLink.Models.Medication", b =>
+                {
+                    b.HasOne("DoctorLink.Models.Patient", null)
+                        .WithMany("Medications")
+                        .HasForeignKey("PatientId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -323,6 +368,11 @@ namespace DoctorLink.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DoctorLink.Models.Patient", b =>
+                {
+                    b.Navigation("Medications");
                 });
 #pragma warning restore 612, 618
         }
