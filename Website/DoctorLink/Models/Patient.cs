@@ -6,7 +6,7 @@ namespace DoctorLink.Models
     public class Patient
     {
         [Key] //sets Id as primary key (entity fram. takes care of this, instead of SQL statements)
-        public int Id { get; set; }
+        public int PatientId { get; set; }
 
         [Required] //sets Name as a required property
         [DisplayName("First Name")]

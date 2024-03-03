@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Medications</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,22 +13,22 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.DrugName)
             </th>
-            <th>
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.Dose)
             </th>
-            <th>
+            <th width="30%">
                 @Html.DisplayNameFor(model => model.MedicationDescription)
             </th>
-            <th>
+            <th width="30%">
                 @Html.DisplayNameFor(model => model.UsageDescription)
             </th>
-            <th>
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.Notes)
             </th>
-            <th>
+            <th width="15%">
                 @Html.DisplayNameFor(model => model.NumberOfScans)
             </th>
             <th></th>
@@ -56,9 +56,15 @@
                 @Html.DisplayFor(modelItem => item.NumberOfScans)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.MedicationId">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.MedicationId">Delete</a>
+                    @*<a asp-action="Details" asp-route-id="@item.MedicationId">Details</a>*@
+            </td>
+            <td>
+                    <form action="@Url.Action("GenerateQRCode", "Medications", new { id = item.MedicationId })" method="get" target="_blank">
+                        <button type="submit">Generate QR Code</button>
+                    </form>
+                    <a href="@Url.Action("GenerateQRCode", "Medications", new { id = item.MedicationId })" download>Download File</a>
             </td>
         </tr>
 }

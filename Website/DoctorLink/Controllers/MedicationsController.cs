@@ -7,22 +7,42 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoctorLink.Data;
 using DoctorLink.Models;
+using ZXing.QrCode;
+using ZXing;
+using ZXing.Windows.Compatibility;
+using System.Drawing;
+using System.Text;
+using ZXing.QrCode.Internal;
 
 namespace DoctorLink.Controllers
 {
     public class MedicationsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
 
-        public MedicationsController(ApplicationDbContext context)
+        public MedicationsController(ApplicationDbContext db)
         {
-            _context = context;
+            _db = db;
         }
 
-        // GET: Medications
+        // GET: Generate QR code
+        public async Task<IActionResult> GenerateQRCode(int? id)
+        {
+            var qrCodeBitmap = GenerateQRBitmap(ConcatenateQRString(id));
+
+            using (var stream = new MemoryStream())
+            {
+                qrCodeBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                var imageData = stream.ToArray();
+                return File(imageData, "image/png");
+            }
+
+        }
+
+        // POST: Medications
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Medication.ToListAsync());
+            return View(await _db.Medication.ToListAsync());
         }
 
         // GET: Medications/Details/5
@@ -33,8 +53,8 @@ namespace DoctorLink.Controllers
                 return NotFound();
             }
 
-            var medication = await _context.Medication
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var medication = await _db.Medication
+                .FirstOrDefaultAsync(m => m.MedicationId == id);
             if (medication == null)
             {
                 return NotFound();
@@ -58,10 +78,13 @@ namespace DoctorLink.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(medication);
-                await _context.SaveChangesAsync();
+                _db.Add(medication);
+                await _db.SaveChangesAsync();
+                TempData["success"] = "Medication added successfully";
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(medication);
         }
 
@@ -73,7 +96,7 @@ namespace DoctorLink.Controllers
                 return NotFound();
             }
 
-            var medication = await _context.Medication.FindAsync(id);
+            var medication = await _db.Medication.FindAsync(id);
             if (medication == null)
             {
                 return NotFound();
@@ -88,7 +111,7 @@ namespace DoctorLink.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,DrugName,Dose,MedicationDescription,UsageDescription,Notes,NumberOfScans")] Medication medication)
         {
-            if (id != medication.Id)
+            if (id != medication.MedicationId)
             {
                 return NotFound();
             }
@@ -97,12 +120,12 @@ namespace DoctorLink.Controllers
             {
                 try
                 {
-                    _context.Update(medication);
-                    await _context.SaveChangesAsync();
+                    _db.Update(medication);
+                    await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MedicationExists(medication.Id))
+                    if (!MedicationExists(medication.MedicationId))
                     {
                         return NotFound();
                     }
@@ -113,6 +136,8 @@ namespace DoctorLink.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            TempData["success"] = "Medication updated successfully";
             return View(medication);
         }
 
@@ -124,8 +149,8 @@ namespace DoctorLink.Controllers
                 return NotFound();
             }
 
-            var medication = await _context.Medication
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var medication = await _db.Medication
+                .FirstOrDefaultAsync(m => m.MedicationId == id);
             if (medication == null)
             {
                 return NotFound();
@@ -139,19 +164,57 @@ namespace DoctorLink.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var medication = await _context.Medication.FindAsync(id);
+            var medication = await _db.Medication.FindAsync(id);
             if (medication != null)
             {
-                _context.Medication.Remove(medication);
+                _db.Medication.Remove(medication);
             }
 
-            await _context.SaveChangesAsync();
+            await _db.SaveChangesAsync();
+
+            TempData["success"] = "Medication removed successfully";
             return RedirectToAction(nameof(Index));
         }
 
         private bool MedicationExists(int id)
         {
-            return _context.Medication.Any(e => e.Id == id);
+            return _db.Medication.Any(e => e.MedicationId == id);
+        }
+
+        private string ConcatenateQRString(int? id)
+        {
+            StringBuilder qrString = new StringBuilder();
+            var medication = _db.Medication.Find(id);
+
+            qrString.Append(medication.DrugName + "/");
+            qrString.Append(medication.Dose + "/");
+            qrString.Append(medication.MedicationDescription + "/");
+            qrString.Append(medication.UsageDescription);
+            if (medication.Notes != null)
+            {
+                qrString.Append("/" +medication.Notes);
+            }
+            return qrString.ToString();
+        }
+
+        private Bitmap GenerateQRBitmap(string qrString)
+        {
+            QrCodeEncodingOptions options = new()
+            {
+                DisableECI = true,
+                CharacterSet = "UTF-8",
+                Width = 500,
+                Height = 500
+            };
+
+            BarcodeWriter writer = new()
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = options
+            };
+
+            var qrCodeBitmap = writer.Write(qrString);
+            return qrCodeBitmap;
         }
     }
 }
