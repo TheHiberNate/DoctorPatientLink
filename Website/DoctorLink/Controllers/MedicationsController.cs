@@ -189,9 +189,11 @@ namespace DoctorLink.Controllers
             qrString.Append(medication.DrugName + "/");
             qrString.Append(medication.Dose + "/");
             qrString.Append(medication.MedicationDescription + "/");
-            qrString.Append(medication.UsageDescription + "/");
-            qrString.Append(medication.Notes);
-
+            qrString.Append(medication.UsageDescription);
+            if (medication.Notes != null)
+            {
+                qrString.Append("/" +medication.Notes);
+            }
             return qrString.ToString();
         }
 

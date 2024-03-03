@@ -20,6 +20,7 @@ namespace DoctorLink.Models
         [DisplayName("Description")]
         public string? MedicationDescription { get; set; }
 
+        [Required]
         [DisplayName("Usage")]
         public string? UsageDescription { get; set; }
 
