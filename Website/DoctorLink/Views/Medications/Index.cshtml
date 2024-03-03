@@ -35,38 +35,44 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DrugName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dose)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MedicationDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsageDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfScans)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MedicationId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.MedicationId">Delete</a>
-                    @*<a asp-action="Details" asp-route-id="@item.MedicationId">Details</a>*@
-            </td>
-            <td>
-                    <form action="@Url.Action("GenerateQRCode", "Medications", new { id = item.MedicationId })" method="get" target="_blank">
-                        <button type="submit">Generate QR Code</button>
-                    </form>
-                    <a href="@Url.Action("GenerateQRCode", "Medications", new { id = item.MedicationId })" download>Download File</a>
-            </td>
-        </tr>
-}
+    @if (Model != null) {
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DrugName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dose)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicationDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsageDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfScans)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MedicationId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MedicationId">Delete</a>
+                        @*<a asp-action="Details" asp-route-id="@item.MedicationId">Details</a>*@
+                </td>
+                <td>
+                        <form action="@Url.Action("GenerateQRCode", "Medications", new { id = item.MedicationId })" method="get" target="_blank">
+                            <button type="submit">Generate QR Code</button>
+                        </form>
+                        <a href="@Url.Action("GenerateQRCode", "Medications", new { id = item.MedicationId })" download>Download File</a>
+                </td>
+            </tr>
+                }
+        }
+        else
+        {
+            <tr> No Medications for this Patient. Click the link above to add medications</tr>
+        }
     </tbody>
 </table>

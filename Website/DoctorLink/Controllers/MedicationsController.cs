@@ -39,10 +39,11 @@ namespace DoctorLink.Controllers
 
         }
 
-        // POST: Medications
-        public async Task<IActionResult> Index()
+        // GET: Medications
+        public async Task<IActionResult> Index(int patientId)
         {
-            return View(await _db.Medication.ToListAsync());
+            ViewData["PatientId"] = patientId;
+            return View(_db.Patients.Find(patientId).Medications);
         }
 
         // GET: Medications/Details/5
@@ -74,11 +75,12 @@ namespace DoctorLink.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DrugName,Dose,MedicationDescription,UsageDescription,Notes,NumberOfScans")] Medication medication)
+        public async Task<IActionResult> Create(int? id, [Bind("Id,DrugName,Dose,MedicationDescription,UsageDescription,Notes,NumberOfScans")] Medication medication)
         {
+            int patientId = (int)ViewData["PatientId"];
             if (ModelState.IsValid)
             {
-                _db.Add(medication);
+                _db.Patients.Find(patientId).Medications.Add(medication);
                 await _db.SaveChangesAsync();
                 TempData["success"] = "Medication added successfully";
 
